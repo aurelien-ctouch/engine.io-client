@@ -1,9 +1,9 @@
 {
-  "name": "engine.io-client",
+  "name": "react-native-engine.io-client",
   "description": "Client for the realtime Engine",
   "license": "MIT",
   "version": "1.6.8",
-  "homepage": "https://github.com/socketio/engine.io-client",
+  "homepage": "https://github.com/tsjing/engine.io-client",
   "contributors": [
     {
       "name": "Guillermo Rauch",
@@ -20,7 +20,11 @@
     {
       "name": "Mark Mokryn",
       "email": "mokesmokes@gmail.com"
-    }
+    },
+    {
+      "name": "Hilke Heremans",
+      "email": "hilke@tsjing.eu"
+    }    
   ],
   "dependencies": {
     "component-emitter": "1.1.2",
@@ -73,6 +77,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/socketio/engine.io-client.git"
+    "url": "https://github.com/tsjing/engine.io-client.git"
   }
 }

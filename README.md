@@ -1,31 +1,19 @@
 
-# Engine.IO client
+# Engine.IO client with React Native compatibility
 
-[![Build Status](https://secure.travis-ci.org/socketio/engine.io-client.svg)](http://travis-ci.org/socketio/engine.io-client)
 [![NPM version](https://badge.fury.io/js/engine.io-client.svg)](http://badge.fury.io/js/engine.io-client)
 
 This is the client for [Engine.IO](http://github.com/socketio/engine.io),
 the implementation of transport-based cross-browser/cross-device
 bi-directional communication layer for [Socket.IO](http://github.com/socketio/socket.io).
 
-## How to use
+**This fork adds React Native support. Just require the module and you are good to go.** 
 
-### Standalone
+> Node.js is **not** supported in this version. Due to a ~~bug~~ missing feature in the React Native packager, leaving `require()` calls to Node.JS related libraries will cause packaging to fail. See also https://productpains.com/post/react-native/packager-support-resolvealias-ala-webpack/How to use
 
-You can find an `engine.io.js` file in this repository, which is a
-standalone build you can use as follows:
+This repo will disappear as the RN packager issue is resolved.
 
-```html
-<script src="/path/to/engine.io.js"></script>
-<script>
-  // eio = Socket
-  var socket = eio('ws://localhost');
-  socket.on('open', function(){
-    socket.on('message', function(data){});
-    socket.on('close', function(){});
-  });
-</script>
-```
+Browser support is still present, you may still build whatever abstraction you like and re-use it across platforms.
 
 ### With browserify
 
@@ -34,31 +22,31 @@ Engine.IO is a commonjs module, which means you can include it by using
 
 1. install the client package
 
-    ```bash
-    $ npm install engine.io-client
-    ```
+   ```bash
+    $ npm install react-native-engine.io-client
+   ```
 
-1. write your app code
+2. write your app code
 
-    ```js
-    var socket = require('engine.io-client')('ws://localhost');
+   ```js
+    var socket = require('react-native-engine.io-client')('ws://localhost');
     socket.on('open', function(){
       socket.on('message', function(data){});
       socket.on('close', function(){});
     });
-    ```
+   ```
 
-1. build your app bundle
+3. build your app bundle
 
-    ```bash
+   ```bash
     $ browserify app.js > bundle.js
-    ```
+   ```
 
-1. include on your page
+4. include on your page
 
-    ```html
+   ```html
     <script src="/path/to/bundle.js"></script>
-    ```
+   ```
 
 ### Sending and receiving binary
 
@@ -75,50 +63,7 @@ Engine.IO is a commonjs module, which means you can include it by using
 </script>
 ```
 
-### Node.JS
-
-Add `engine.io-client` to your `package.json` and then:
-
-```js
-var socket = require('engine.io-client')('ws://localhost');
-socket.on('open', function(){
-  socket.on('message', function(data){});
-  socket.on('close', function(){});
-});
-```
-
-### Node.js with certificates
-```js
-var opts = {
-  key: fs.readFileSync('test/fixtures/client.key'),
-  cert: fs.readFileSync('test/fixtures/client.crt'),
-  ca: fs.readFileSync('test/fixtures/ca.crt')
-};
-
-var socket = require('engine.io-client')('ws://localhost', opts);
-socket.on('open', function(){
-  socket.on('message', function(data){});
-  socket.on('close', function(){});
-});
-```
-
-### Node.js with extraHeaders
-```js
-var opts = {
-  extraHeaders: {
-    'X-Custom-Header-For-My-Project': 'my-secret-access-token',
-    'Cookie': 'user_session=NI2JlCKF90aE0sJZD9ZzujtdsUqNYSBYxzlTsvdSUe35ZzdtVRGqYFr0kdGxbfc5gUOkR9RGp20GVKza; path=/; expires=Tue, 07-Apr-2015 18:18:08 GMT; secure; HttpOnly'
-  }
-};
-
-var socket = require('engine.io-client')('ws://localhost', opts);
-socket.on('open', function(){
-  socket.on('message', function(data){});
-  socket.on('close', function(){});
-});
-```
-
-## Features
+### ~~Features
 
 - Lightweight
 - Runs on browser and node.js seamlessly
@@ -179,60 +124,60 @@ Exposed as `eio` in the browser standalone build.
 #### Methods
 
 - **constructor**
-    - Initializes the client
-    - **Parameters**
-      - `String` uri
-      - `Object`: optional, options object
-    - **Options**
-      - `agent` (`http.Agent`): `http.Agent` to use, defaults to `false` (NodeJS only)
-      - `upgrade` (`Boolean`): defaults to true, whether the client should try
+  - Initializes the client
+  - **Parameters**
+    - `String` uri
+    - `Object`: optional, options object
+  - **Options**
+    - `agent` (`http.Agent`): `http.Agent` to use, defaults to `false` (NodeJS only)
+    - `upgrade` (`Boolean`): defaults to true, whether the client should try
       to upgrade the transport from long-polling to something better.
-      - `forceJSONP` (`Boolean`): forces JSONP for polling transport.
-      - `jsonp` (`Boolean`): determines whether to use JSONP when
-        necessary for polling. If disabled (by settings to false) an error will
-        be emitted (saying "No transports available") if no other transports
-        are available. If another transport is available for opening a
-        connection (e.g. WebSocket) that transport
-        will be used instead.
-      - `forceBase64` (`Boolean`): forces base 64 encoding for polling transport even when XHR2 responseType is available and WebSocket even if the used standard supports binary.
-      - `enablesXDR` (`Boolean`): enables XDomainRequest for IE8 to avoid loading bar flashing with click sound. default to `false` because XDomainRequest has a flaw of not sending cookie.
-      - `timestampRequests` (`Boolean`): whether to add the timestamp with each
-        transport request. Note: polling requests are always stamped unless this
-        option is explicitly set to `false` (`false`)
-      - `timestampParam` (`String`): timestamp parameter (`t`)
-      - `policyPort` (`Number`): port the policy server listens on (`843`)
-      - `path` (`String`): path to connect to, default is `/engine.io`
-      - `transports` (`Array`): a list of transports to try (in order).
+    - `forceJSONP` (`Boolean`): forces JSONP for polling transport.
+    - `jsonp` (`Boolean`): determines whether to use JSONP when
+      necessary for polling. If disabled (by settings to false) an error will
+      be emitted (saying "No transports available") if no other transports
+      are available. If another transport is available for opening a
+      connection (e.g. WebSocket) that transport
+      will be used instead.
+    - `forceBase64` (`Boolean`): forces base 64 encoding for polling transport even when XHR2 responseType is available and WebSocket even if the used standard supports binary.
+    - `enablesXDR` (`Boolean`): enables XDomainRequest for IE8 to avoid loading bar flashing with click sound. default to `false` because XDomainRequest has a flaw of not sending cookie.
+    - `timestampRequests` (`Boolean`): whether to add the timestamp with each
+      transport request. Note: polling requests are always stamped unless this
+      option is explicitly set to `false` (`false`)
+    - `timestampParam` (`String`): timestamp parameter (`t`)
+    - `policyPort` (`Number`): port the policy server listens on (`843`)
+    - `path` (`String`): path to connect to, default is `/engine.io`
+    - `transports` (`Array`): a list of transports to try (in order).
       Defaults to `['polling', 'websocket']`. `Engine`
       always attempts to connect directly with the first one, provided the
       feature detection test for it passes.
-      - `rememberUpgrade` (`Boolean`): defaults to false.
-        If true and if the previous websocket connection to the server succeeded,
-        the connection attempt will bypass the normal upgrade process and will initially
-        try websocket. A connection attempt following a transport error will use the
-        normal upgrade process. It is recommended you turn this on only when using
-        SSL/TLS connections, or if you know that your network does not block websockets.
-      - `pfx` (`String`): Certificate, Private key and CA certificates to use for SSL. Can be used in Node.js client environment to manually specify certificate information.
-      - `key` (`String`): Private key to use for SSL. Can be used in Node.js client environment to manually specify certificate information.
-      - `passphrase` (`String`): A string of passphrase for the private key or pfx. Can be used in Node.js client environment to manually specify certificate information.
-      - `cert` (`String`): Public x509 certificate to use. Can be used in Node.js client environment to manually specify certificate information.
-      - `ca` (`String`|`Array`): An authority certificate or array of authority certificates to check the remote host against.. Can be used in Node.js client environment to manually specify certificate information.
-      - `ciphers` (`String`): A string describing the ciphers to use or exclude. Consult the [cipher format list](http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT) for details on the format. Can be used in Node.js client environment to manually specify certificate information.
-      - `rejectUnauthorized` (`Boolean`): If true, the server certificate is verified against the list of supplied CAs. An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent. Can be used in Node.js client environment to manually specify certificate information.
-      - `perMessageDeflate` (`Object|Boolean`): parameters of the WebSocket permessage-deflate extension
-        (see [ws module](https://github.com/einaros/ws) api docs). Set to `false` to disable. (`true`)
-        - `threshold` (`Number`): data is compressed only if the byte size is above this value. This option is ignored on the browser. (`1024`)
-      - `extraHeaders` (`Object`): Headers that will be passed for each request to the server (via xhr-polling and via websockets). These values then can be used during handshake or for special proxies. Can only be used in Node.js client environment.
+    - `rememberUpgrade` (`Boolean`): defaults to false.
+      If true and if the previous websocket connection to the server succeeded,
+      the connection attempt will bypass the normal upgrade process and will initially
+      try websocket. A connection attempt following a transport error will use the
+      normal upgrade process. It is recommended you turn this on only when using
+      SSL/TLS connections, or if you know that your network does not block websockets.
+    - `pfx` (`String`): Certificate, Private key and CA certificates to use for SSL. Can be used in Node.js client environment to manually specify certificate information.
+    - `key` (`String`): Private key to use for SSL. Can be used in Node.js client environment to manually specify certificate information.
+    - `passphrase` (`String`): A string of passphrase for the private key or pfx. Can be used in Node.js client environment to manually specify certificate information.
+    - `cert` (`String`): Public x509 certificate to use. Can be used in Node.js client environment to manually specify certificate information.
+    - `ca` (`String`|`Array`): An authority certificate or array of authority certificates to check the remote host against.. Can be used in Node.js client environment to manually specify certificate information.
+    - `ciphers` (`String`): A string describing the ciphers to use or exclude. Consult the [cipher format list](http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT) for details on the format. Can be used in Node.js client environment to manually specify certificate information.
+    - `rejectUnauthorized` (`Boolean`): If true, the server certificate is verified against the list of supplied CAs. An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent. Can be used in Node.js client environment to manually specify certificate information.
+    - `perMessageDeflate` (`Object|Boolean`): parameters of the WebSocket permessage-deflate extension
+      (see [ws module](https://github.com/einaros/ws) api docs). Set to `false` to disable. (`true`)
+      - `threshold` (`Number`): data is compressed only if the byte size is above this value. This option is ignored on the browser. (`1024`)
+    - `extraHeaders` (`Object`): Headers that will be passed for each request to the server (via xhr-polling and via websockets). These values then can be used during handshake or for special proxies. Can only be used in Node.js client environment.
 - `send`
-    - Sends a message to the server
-    - **Parameters**
-      - `String` | `ArrayBuffer` | `ArrayBufferView` | `Blob`: data to send
-      - `Object`: optional, options object
-      - `Function`: optional, callback upon `drain`
-    - **Options**
-      - `compress` (`Boolean`): whether to compress sending data. This option is ignored and forced to be `true` on the browser. (`true`)
+  - Sends a message to the server
+  - **Parameters**
+    - `String` | `ArrayBuffer` | `ArrayBufferView` | `Blob`: data to send
+    - `Object`: optional, options object
+    - `Function`: optional, callback upon `drain`
+  - **Options**
+    - `compress` (`Boolean`): whether to compress sending data. This option is ignored and forced to be `true` on the browser. (`true`)
 - `close`
-    - Disconnects the client.
+  - Disconnects the client.
 
 ### Transport
 
@@ -245,6 +190,8 @@ The transport class. Private. _Inherits from EventEmitter_.
 - `drain`: emitted by polling transports upon a buffer drain
 
 ## Tests
+
+> Because node.js support has been removed, the test suite will not run. This should not be an issue as only minimal code has been changed.
 
 `engine.io-client` is used to test
 [engine](http://github.com/socketio/engine.io). Running the `engine.io`
@@ -264,9 +211,9 @@ a saucelabs account.
 ## Support
 
 The support channels for `engine.io-client` are the same as `socket.io`:
-  - irc.freenode.net **#socket.io**
-  - [Google Groups](http://groups.google.com/group/socket_io)
-  - [Website](http://socket.io)
+- irc.freenode.net **#socket.io**
+- [Google Groups](http://groups.google.com/group/socket_io)
+- [Website](http://socket.io)
 
 ## Development
 
@@ -274,13 +221,13 @@ To contribute patches, run tests or benchmarks, make sure to clone the
 repository:
 
 ```bash
-git clone git://github.com/socketio/engine.io-client.git
+git clone git://github.com/tsjing/react-native-engine.io-client.git
 ```
 
 Then:
 
 ```bash
-cd engine.io-client
+cd react-native-engine.io-client
 npm install
 ```
 
