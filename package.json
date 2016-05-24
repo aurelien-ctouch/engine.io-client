@@ -2,7 +2,7 @@
   "name": "react-native-engine.io-client",
   "description": "Client for the realtime Engine",
   "license": "MIT",
-  "version": "1.6.10",
+  "version": "1.6.11",
   "homepage": "https://github.com/tsjing/engine.io-client",
   "contributors": [
     {
@@ -24,7 +24,7 @@
     {
       "name": "Hilke Heremans",
       "email": "hilke@tsjing.eu"
-    }    
+    }
   ],
   "dependencies": {
     "component-emitter": "1.1.2",
