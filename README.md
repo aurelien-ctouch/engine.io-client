@@ -9,8 +9,6 @@ bi-directional communication layer for [Socket.IO](http://github.com/socketio/so
 
 **This fork adds React Native support. Just require the module and you are good to go.** 
 
-> Node.js is **not** supported in this version. Due to a ~~bug~~ missing feature in the React Native packager, leaving `require()` calls to Node.JS related libraries will cause packaging to fail. See also https://productpains.com/post/react-native/packager-support-resolvealias-ala-webpack/How to use
-
 This repo will disappear as the RN packager issue is resolved.
 
 Browser support is still present, you may still build whatever abstraction you like and re-use it across platforms.
