@@ -2,7 +2,7 @@
   "name": "react-native-engine.io-client",
   "description": "Client for the realtime Engine",
   "license": "MIT",
-  "version": "1.6.8",
+  "version": "1.6.10",
   "homepage": "https://github.com/tsjing/engine.io-client",
   "contributors": [
     {
@@ -30,7 +30,7 @@
     "component-emitter": "1.1.2",
     "component-inherit": "0.0.3",
     "debug": "2.2.0",
-    "engine.io-parser": "1.2.4",
+    "react-native-engine.io-parser": "1.2.4",
     "has-cors": "1.1.0",
     "indexof": "0.0.1",
     "parsejson": "0.0.1",
